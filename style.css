@@ -1,0 +1,82 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  font-size: 24px;
+}
+
+.simon-game {
+  display: flex;
+  height: 100vh;
+  align-items: center;
+  justify-content: center;
+}
+
+.simon-game__game-field {
+  margin-right: 50px;
+}
+
+.simon-game__circle {
+  display: flex;
+  flex-wrap: wrap;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  box-shadow: 4px 4px 50px rgba(0, 0, 0, 0.3);
+}
+
+.simon-game__circle-block {
+  width: 50%;
+  height: 50%;
+  cursor: pointer;
+  transition: filter 0.15s ease-in-out;
+}
+
+.simon-game__circle-block:hover,
+.simon-game__circle-block_active {
+  filter: brightness(80%);
+}
+
+.simon-game__circle-block[data-id="1"] {
+  border-top-left-radius: 100%;
+  background-color: #FF5252;
+}
+
+.simon-game__circle-block[data-id="2"] {
+  border-top-right-radius: 100%;
+  background-color: #536DFE;
+}
+
+.simon-game__circle-block[data-id="3"] {
+  border-bottom-left-radius: 100%;
+  background-color: #FFFF00;
+}
+
+.simon-game__circle-block[data-id="4"] {
+  border-bottom-right-radius: 100%;
+  background-color: #69F0AE;
+}
+
+.simon-game__rounds {
+  margin-bottom: 15px;
+}
+
+.simon-game__start-btn {
+  padding: 4px 15px;
+  font-size: 24px;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  background-color: #7986CB;
+  cursor: pointer;
+  box-shadow: 0 10px 20px #7986CB;
+}
+
+.simon-game__start-btn:active {
+  transform: translateY(5px);
+  box-shadow: 0 5px 10px #7986CB;
+}

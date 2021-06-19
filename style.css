@@ -63,7 +63,7 @@ body {
 
 .simon-game__circle-block[data-id="3"] {
   border-bottom-left-radius: 100%;
-  background-color: #FFFF00;
+  background-color: #FFD740;
 }
 
 .simon-game__circle-block[data-id="4"] {

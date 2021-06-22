@@ -16,24 +16,21 @@ class SimonGame {
     this.startBtn.addEventListener('click', () => {
       this.startGame();
     });
+
+    this.circleBlocks.forEach((circleBlock, i) => {
+      circleBlock.addEventListener('click', () => {
+        this.handleUserInput(circleBlock, i);
+      });
+    });
   }
 
   startGame() {
-    this.changeRound(1);
-    this.changeRoundView(this.roundCounter);
-    
+    this.changeRound();
+    this.playRandomSequence();
+  }
+
+  playRandomSequence() {
     const randomSequence = this.getRandomSequence(this.roundCounter);
-
-    this.playRandomSequence(randomSequence);
-  }
-
-  endGame() {
-    alert('GAME OVER');
-    this.changeRound(0);
-    this.changeRoundView(this.roundCounter);
-  }
-
-  playRandomSequence(randomSequence) {
     const elementsToPlay = [];
 
     randomSequence.forEach((item) => {
@@ -59,24 +56,46 @@ class SimonGame {
     }, 600);
   }
 
-  getRandomSequence(roundNumber) {
-    const randomSequence = [];
+  handleUserInput(circleBlock, i) {
+    const circleBlockId = parseInt(circleBlock.dataset.id);
+    this.playerSequence.push(circleBlockId);
 
+    if (this.playerSequence.length !== this.randomSequence.length) return;
+
+    if (this.playerSequence[i] === this.randomSequence[i]) {
+      this.playerSequence = [];
+      this.randomSequence = [];
+      alert('next round');
+      this.startGame();
+
+      return;
+    }
+
+    this.endGame();
+  }
+
+  getRandomSequence(roundNumber) {
     for (let i = 0; i < roundNumber; i++) {
       const randomNumber = Math.floor(Math.random() * 4) + 1;
 
-      randomSequence.push(randomNumber);
+      this.randomSequence.push(randomNumber);
     }
 
-    return randomSequence;
+    return this.randomSequence;
   }
 
-  changeRound(roundNumber) {
-    this.roundCounter = roundNumber;
+  changeRound() {
+    this.roundCounter += 1;
+    this.roundCounterElement.textContent = this.roundCounter;
   }
 
-  changeRoundView(round) {
-    this.roundCounterElement.textContent = round;
+  endGame() {
+    alert('GAME OVER');
+
+    this.playerSequence = [];
+    this.randomSequence = [];
+    this.roundCounter = 0;
+    this.roundCounterElement.textContent = this.roundCounter;
   }
 }
 

@@ -6,8 +6,15 @@ class SimonGame {
 
     this.startBtn = document.querySelector('.simon-game__start-btn');
     this.roundCounterElement = document.querySelector('.simon-game__round-counter');
-    this.circle = document.querySelector('.simon-game__circle');
     this.circleBlocks = document.querySelectorAll('.simon-game__circle-block');
+
+    this.audio = {
+      '1': new Audio('https://s3.amazonaws.com/freecodecamp/simonSound1.mp3'),
+      '2': new Audio('https://s3.amazonaws.com/freecodecamp/simonSound2.mp3'),
+      '3': new Audio('https://s3.amazonaws.com/freecodecamp/simonSound3.mp3'),
+      '4': new Audio('https://s3.amazonaws.com/freecodecamp/simonSound4.mp3'),
+    }
+
 
     this.init();
   }
@@ -50,13 +57,19 @@ class SimonGame {
 
   playElement(element) {
     element.classList.add('simon-game__circle-block_active');
+    this.playAudio(element);
 
     setTimeout(() => {
       element.classList.remove('simon-game__circle-block_active');
     }, 600);
   }
 
+  playAudio(element) {
+    this.audio[element.dataset.id].play();
+  }
+
   handleUserInput(circleBlock, i) {
+    this.playAudio(circleBlock);
     const circleBlockId = parseInt(circleBlock.dataset.id);
     this.playerSequence.push(circleBlockId);
 
